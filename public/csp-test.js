@@ -1,0 +1,1 @@
+console.log("Same-origin script executed successfully");
