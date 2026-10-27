@@ -14,6 +14,9 @@ import secureAuthorizationRoutes from "./05-authorization-idor-bola/secure.js";
 import vulnerableCsrfRoutes from "./06-csrf/vulnerable.js";
 import secureCsrfRoutes from "./06-csrf/secure.js";
 import { securityHeadersMiddleware } from "./08-security-headers/security-headers.config.js";
+import uploadRoutes from "./09-file-upload-security/upload.routes.js";
+import apiSecurityRoutes from "./10-api-security/api-security.routes.js";
+
 const app = express();
 app.use((req, res, next) => {
   res.setHeader(
@@ -24,6 +27,7 @@ app.use((req, res, next) => {
 });
 app.use(securityHeadersMiddleware);
 app.use(express.json({ limit: "100kb" }));
+// app.use(express.json());
 app.use(cookieParser());
 app.use(express.static("public"));
 // app.use(helmet());
@@ -47,24 +51,26 @@ app.use("/api/idor/vulnerable", vulnerableAuthorizationRoutes);
 app.use("/api/idor/secure", secureAuthorizationRoutes);
 app.use("/api/csrf/vulnerable", vulnerableCsrfRoutes);
 app.use("/api/csrf/secure", secureCsrfRoutes);
+app.use("/api/file-upload", uploadRoutes);
+app.use("/api-security", apiSecurityRoutes);
 //since below is inline script it is blocked.if it is included like <script src='/....'> refering from cuurent page means it is allowed.<script src='evil.com/data.js'> external scritps are not allowed
 app.get("/csp-test", (req, res) => {
   res.type("html").send(`
     <script src="/csp-test.js"></script>
     <!DOCTYPE html>
     <html>
-      <body>
-        <h1>CSP Test</h1>
-
-        <script>
-          alert("Inline script executed");
-        </script>
-      </body>
+    <body>
+    <h1>CSP Test</h1>
+    
+    <script>
+    alert("Inline script executed");
+    </script>
+    </body>
     </html>
-  `);
-});
-app.get("/mime-test", (_req, res) => {
-  res
+    `);
+  });
+  app.get("/mime-test", (_req, res) => {
+    res
     .type("text/plain")
     .send('console.log("This is plain text, not a JavaScript file");');
 });
@@ -80,13 +86,14 @@ app.get("/permissions-test", (_req, res) => {
   res.type("html").send(`
     <!DOCTYPE html>
     <html>
-      <body>
-      <h1>Permissions Policy Test</h1>
-      <button id="check-location">Check location</button>
-      
-      </body>
-      <script src="/permissions-test.js"></script>
+    <body>
+    <h1>Permissions Policy Test</h1>
+    <button id="check-location">Check location</button>
+    
+    </body>
+    <script src="/permissions-test.js"></script>
     </html>
-  `);
-});
-export default app;
+    `);
+  });
+  export default app;
+  
