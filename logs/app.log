@@ -1,0 +1,12 @@
+{"level":"info","message":"HTTP logging demo server started","port":3001,"timestamp":"2026-10-27T12:17:52.690Z"}
+{"durationMs":3,"level":"info","message":"HTTP request completed","method":"GET","path":"/","statusCode":200,"timestamp":"2026-10-27T12:18:26.289Z"}
+{"durationMs":1,"level":"warn","message":"HTTP request returned a client error","method":"GET","path":"/missing","statusCode":404,"timestamp":"2026-10-27T12:18:51.035Z"}
+{"durationMs":1,"level":"warn","message":"HTTP request returned a client error","method":"GET","path":"/missing","statusCode":404,"timestamp":"2026-10-27T12:19:07.071Z"}
+{"durationMs":0,"level":"error","message":"HTTP request failed","method":"GET","path":"/error-demo","statusCode":500,"timestamp":"2026-10-27T12:19:47.355Z"}
+{"level":"info","message":"Application started","timestamp":"2026-10-27T12:32:54.530Z"}
+{"level":"warn","message":"Failed login attempt","reason":"Invalid credentials","timestamp":"2026-10-27T12:32:54.532Z","userId":42}
+{"errorCode":"ECONNREFUSED","level":"error","message":"Database connection failed","timestamp":"2026-10-27T12:32:54.532Z"}
+{"level":"info","message":"User logged in successfully","timestamp":"2026-10-27T12:32:54.533Z","userId":101}
+{"ip":"192.168.1.50","level":"warn","message":"Suspicious login attempt detected","timestamp":"2026-10-27T12:32:54.533Z","userId":202}
+{"endpoint":"/api/users","level":"error","message":"API request failed","statusCode":500,"timestamp":"2026-10-27T12:32:54.533Z"}
+{"errorCode":"ECONNREFUSED","level":"error","message":"Failed to fetch users","operation":"fetchUsers","timestamp":"2026-10-27T12:32:54.533Z"}

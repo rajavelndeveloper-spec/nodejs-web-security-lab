@@ -1,0 +1,41 @@
+
+services:
+  primary:
+    image: postgres:16
+    container_name: pg-primary
+    environment:
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: app_demo_password
+      POSTGRES_DB: shopdb
+      REPLICATION_PASSWORD: replica_demo_password
+    ports:
+      - "5473:5432"
+    volumes:
+      - rejoined_primary_data:/var/lib/postgresql/data
+      - ./scripts/rejoined-primary-entrypoint.sh:/rejoined-primary-entrypoint.sh:ro
+    entrypoint: ["bash", "/rejoined-primary-entrypoint.sh"]
+    depends_on:
+      - replica
+
+  replica:
+    image: postgres:16
+    container_name: pg-replica
+    environment:
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: app_demo_password
+      POSTGRES_DB: shopdb
+      REPLICATION_PASSWORD: replica_demo_password
+    ports:
+      - "5474:5432"
+    volumes:
+      - replica_data:/var/lib/postgresql/data
+      - ./scripts/replica-entrypoint.sh:/replica-entrypoint.sh:ro
+    entrypoint: ["bash", "/replica-entrypoint.sh"]
+
+volumes:
+  primary_data:
+    name: 17_database-replication_primary_data
+  replica_data:
+    name: 17_database-replication_replica_data
+  rejoined_primary_data:
+    name: 17_database-replication_rejoined_primary_data

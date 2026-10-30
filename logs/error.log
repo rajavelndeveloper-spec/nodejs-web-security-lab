@@ -1,0 +1,4 @@
+{"durationMs":0,"level":"error","message":"HTTP request failed","method":"GET","path":"/error-demo","statusCode":500,"timestamp":"2026-10-27T12:19:47.355Z"}
+{"errorCode":"ECONNREFUSED","level":"error","message":"Database connection failed","timestamp":"2026-10-27T12:32:54.532Z"}
+{"endpoint":"/api/users","level":"error","message":"API request failed","statusCode":500,"timestamp":"2026-10-27T12:32:54.533Z"}
+{"errorCode":"ECONNREFUSED","level":"error","message":"Failed to fetch users","operation":"fetchUsers","timestamp":"2026-10-27T12:32:54.533Z"}
